@@ -6,6 +6,10 @@ namespace RockPaperScissorsBattleRoyale
 {
     class Paper : Entity
     {
-        private readonly EntityIdentity Identity = EntityIdentity.Paper;
+        private readonly EntityIdentity identity = EntityIdentity.Paper;
+        public override EntityIdentity GetIdentity()
+        {
+            return identity;
+        }
     }
 }

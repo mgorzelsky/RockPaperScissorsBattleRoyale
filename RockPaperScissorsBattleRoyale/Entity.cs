@@ -6,5 +6,6 @@ namespace RockPaperScissorsBattleRoyale
 {
     public abstract class Entity
     {
+        public abstract EntityIdentity GetIdentity();
     }
 }
