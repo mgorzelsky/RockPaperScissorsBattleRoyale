@@ -6,7 +6,7 @@ namespace RockPaperScissorsBattleRoyale
     {
         static void Main()
         {
-            Simulation simulation = new Simulation(50, 50, 50);
+            Simulation simulation = new Simulation(50);
             simulation.Start();
 
             //write results to file here

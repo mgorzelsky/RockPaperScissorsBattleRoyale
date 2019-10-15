@@ -8,19 +8,15 @@ namespace RockPaperScissorsBattleRoyale
     public enum EntityIdentity { Rock, Paper, Scissors };
     class Simulation
     {
-        private int numberOfRocks { get; }
-        private int numberOfScissors { get; }
-        private int numberOfPapers { get; }
+        private readonly int initialArmySize;
         private List<Rock> listOfRocks;
         private List<Scissors> listOfScissors;
         private List<Paper> listOfPapers;
         private Random rand = new Random();
 
-        public Simulation(int numberOfRocks, int numberOfScissors, int numberOfPapers)
+        public Simulation(int initialArmySize)
         {
-            this.numberOfRocks = numberOfRocks;
-            this.numberOfScissors = numberOfScissors;
-            this.numberOfPapers = numberOfPapers;
+            this.initialArmySize = initialArmySize;
         }
 
         public void Start()
@@ -30,15 +26,15 @@ namespace RockPaperScissorsBattleRoyale
             listOfPapers = new List<Paper>();
 
             //Build the initial armies of Rock/Scissors/Paper
-            for (int i = 0; i < numberOfRocks; i++)
+            for (int i = 0; i < initialArmySize; i++)
+            {
                 ArmyBuilder(listOfRocks);
-
-            for (int i = 0; i < numberOfScissors; i++)
-                ArmyBuilder(listOfScissors);
-
-            for (int i = 0; i < numberOfPapers; i++)
                 ArmyBuilder(listOfPapers);
+                ArmyBuilder(listOfScissors);
+            }
 
+            //Each army gets to move once in a random direction. Depending on collision they either 
+            //win, lose, or duplicate. Continues until only one army is standing.
             do
             {
                 int entitiesToAdd = 0;
@@ -46,8 +42,6 @@ namespace RockPaperScissorsBattleRoyale
                 //ROCK
                 if (listOfRocks.Count > 0)
                 {
-                    //for (int i = 0; i < listOfRocks.Count; i++)
-                    //{
                         int move = rand.Next(0, 4);
                         if (move == 2)
                         {
@@ -61,7 +55,6 @@ namespace RockPaperScissorsBattleRoyale
                         }
                         if (move == 1)
                             entitiesToAdd++;
-                    //}
                 }
                 for (int i = 0; i < entitiesToAdd; i++)
                     ArmyBuilder(listOfRocks);
@@ -71,8 +64,6 @@ namespace RockPaperScissorsBattleRoyale
                 //SCISSORS
                 if (listOfScissors.Count > 0)
                 {
-                    //for (int i = 0; i < listOfScissors.Count; i++)
-                    //{
                         int move = rand.Next(0, 4);
                         if (move == 1)
                         {
@@ -86,7 +77,6 @@ namespace RockPaperScissorsBattleRoyale
                         }
                         if (move == 2)
                             entitiesToAdd++;
-                    //}
                 }
                 for (int i = 0; i < entitiesToAdd; i++)
                     ArmyBuilder(listOfScissors);
@@ -96,8 +86,6 @@ namespace RockPaperScissorsBattleRoyale
                 //PAPER
                 if (listOfPapers.Count > 0)
                 {
-                    //for (int i = 0; i < listOfPapers.Count; i++)
-                    //{
                         int move = rand.Next(0, 4);
                         if (move == 1)
                         {
@@ -111,64 +99,23 @@ namespace RockPaperScissorsBattleRoyale
                         }
                         if (move == 3)
                             entitiesToAdd++;
-                    //}
                 }
                 for (int i = 0; i < entitiesToAdd; i++)
                     ArmyBuilder(listOfPapers);
 
-                //{
-                //    //Rock
-                //    int move = rand.Next(0, 4);
-                //    if (move == 2)
-                //        Battle(listOfRocks[0], listOfScissors[rand.Next(0, listOfScissors.Count)]);
-                //    if (move == 3)
-                //        Battle(listOfRocks[0], listOfPapers[rand.Next(0, listOfPapers.Count)]);
-                //    if (move == 1)
-                //        ArmyBuilder(listOfRocks);
-                //}
-                //{
-                //    //Scissors
-                //    int move = rand.Next(0, 4);
-                //    if (move == 1)
-                //        Battle(listOfScissors[0], listOfRocks[rand.Next(0, listOfRocks.Count)]);
-                //    if (move == 3)
-                //        Battle(listOfScissors[0], listOfPapers[rand.Next(0, listOfPapers.Count)]);
-                //    if (move == 2)
-                //        ArmyBuilder(listOfScissors);
-                //}
-                //{
-                //    int move = rand.Next(0, 4);
-                //    if (move == 1)
-                //        Battle(listOfPapers[0], listOfRocks[rand.Next(0, listOfRocks.Count)]);
-                //    if (move == 2)
-                //        Battle(listOfPapers[0], listOfScissors[rand.Next(0, listOfScissors.Count)]);
-                //    if (move == 3)
-                //        ArmyBuilder(listOfPapers);
-                //}
-
+                //Print out the current army numbers for each army
                 Console.Write("Rock: " + listOfRocks.Count + "     ");
                 Console.Write("Scissors: " + listOfScissors.Count + "     ");
                 Console.Write("Paper: " + listOfPapers.Count + "     ");
                 Console.WriteLine();
-                Thread.Sleep(200);
+                Thread.Sleep(200); //Windows requires more than 15ms before each random call to ensure you don't get the same # twice
             }
             while (listOfScissors.Count != 0 && listOfPapers.Count != 0 ||
                    listOfRocks.Count != 0 && listOfPapers.Count != 0 ||
                    listOfRocks.Count != 0 && listOfScissors.Count != 0);
-
-            //string winner = Battle(listOfRocks[0], listOfPapers[0]);
-            //Console.WriteLine(winner);
-            //foreach (Rock rock in listOfRocks)
-            //    Console.WriteLine(rock);
-            //Console.WriteLine();
-            //foreach (Scissors scissors in listOfScissors)
-            //    Console.WriteLine(scissors);
-            //Console.WriteLine();
-            //foreach (Paper paper in listOfPapers)
-            //    Console.WriteLine(paper);
-            //Console.WriteLine();
         }
 
+        //Take in the combatants, cast them to the correct type, and compare. Call destroy on the loser.
         private void Battle(Entity x, Entity y)
         {
             Entity combatantOne;
@@ -232,6 +179,7 @@ namespace RockPaperScissorsBattleRoyale
             return;
         }
 
+        //3 overloads to account for different types of lists. Adds new objects to the specified list.
         private void ArmyBuilder(List<Rock> rockType)
         {
             Rock rock = new Rock();
@@ -248,7 +196,7 @@ namespace RockPaperScissorsBattleRoyale
             listOfPapers.Add(paper);
         }
 
-
+        //Remove one object from the losing army (list)
         private void RockDestroyer()
         {
             listOfRocks.RemoveAt(listOfRocks.Count - 1);
