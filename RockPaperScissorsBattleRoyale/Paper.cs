@@ -6,5 +6,6 @@ namespace RockPaperScissorsBattleRoyale
 {
     class Paper : Entity
     {
+        private readonly EntityIdentity Identity = EntityIdentity.Paper;
     }
 }
