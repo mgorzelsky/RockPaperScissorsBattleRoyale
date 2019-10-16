@@ -183,35 +183,45 @@ namespace RockPaperScissorsBattleRoyale
                 Console.WriteLine();
                 Thread.Sleep(20); //Windows requires more than 15ms before each random call to ensure you don't get the same # twice
 
+                //Draw
+                if (sizeOfRockArmy == 0 && 
+                    sizeOfPaperArmy == 0 && 
+                    sizeOfScissorArmy == 0 && 
+                    sizeOfLizardArmy == 0 &&
+                    sizeOfSpockArmy == 0)
+                {
+                    hasSomeoneWon = true;
+                    winner = "Draw";
+                }
                 //Rock Wins
                 if (sizeOfPaperArmy == 0 && sizeOfScissorArmy == 0 && sizeOfLizardArmy == 0 && sizeOfSpockArmy == 0)
                 {
                     hasSomeoneWon = true;
-                    winner = "Rock";
+                    winner = "Rock " + sizeOfRockArmy;
                 }
                 //Paper Wins
                 if (sizeOfRockArmy == 0 && sizeOfScissorArmy == 0 && sizeOfLizardArmy == 0 && sizeOfSpockArmy == 0)
                 {
                     hasSomeoneWon = true;
-                    winner = "Paper";
+                    winner = "Paper " + sizeOfPaperArmy;
                 }
                 //Scissors Wins
                 if (sizeOfRockArmy == 0 && sizeOfPaperArmy == 0 && sizeOfLizardArmy == 0 && sizeOfSpockArmy == 0)
                 {
                     hasSomeoneWon = true;
-                    winner = "scissors";
+                    winner = "Scissors " + sizeOfScissorArmy;
                 }
                 //Lizard Wins
                 if (sizeOfRockArmy == 0 && sizeOfPaperArmy == 0 && sizeOfScissorArmy == 0 && sizeOfSpockArmy == 0)
                 {
                     hasSomeoneWon = true;
-                    winner = "Lizard";
+                    winner = "Lizard " + sizeOfLizardArmy;
                 }
                 //Spock Wins
                 if (sizeOfRockArmy == 0 && sizeOfPaperArmy == 0 && sizeOfScissorArmy == 0 && sizeOfLizardArmy == 0)
                 {
                     hasSomeoneWon = true;
-                    winner = "Spock";
+                    winner = "Spock " + sizeOfSpockArmy;
                 }
 
 
