@@ -4,12 +4,41 @@ using System.Text;
 
 namespace RockPaperScissorsBattleRoyale
 {
-    class Rock : Entity
+    class Rock
     {
-        private readonly EntityIdentity identity = EntityIdentity.Rock;
-        public override EntityIdentity GetIdentity()
+        private int armySize;
+        private Random rand = new Random();
+
+        public Rock(int initialArmySize)
         {
-            return identity;
+            armySize = initialArmySize;
+        }
+
+        public MovementCollision Move()
+        {
+            MovementCollision direction = (MovementCollision)rand.Next(0, 4);
+            return direction;
+        }
+
+        public void AddSoldier()
+        {
+            if (armySize > 0)
+            {
+                armySize++;
+            }
+        }
+
+        public void RemoveSoldier()
+        {
+            if (armySize > 0)
+            {
+                armySize--;
+            }
+        }
+
+        public int GetArmySize()
+        {
+            return armySize;
         }
     }
 }
