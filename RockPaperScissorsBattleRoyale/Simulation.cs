@@ -39,7 +39,13 @@ namespace RockPaperScissorsBattleRoyale
             sizeOfLizardArmy = lizard.GetArmySize();
             sizeOfSpockArmy = spock.GetArmySize();
 
-            do
+            //while (((sizeOfPaperArmy != 0) && (sizeOfScissorArmy != 0) && (sizeOfLizardArmy != 0)  && (sizeOfSpockArmy != 0)) ||    //Rock wins
+            //       ((sizeOfRockArmy != 0)  && (sizeOfScissorArmy != 0) && (sizeOfLizardArmy != 0)  && (sizeOfSpockArmy != 0)) ||    //Paper wins
+            //       ((sizeOfRockArmy != 0)  && (sizeOfPaperArmy != 0)   && (sizeOfLizardArmy != 0)  && (sizeOfSpockArmy != 0)) ||    //Scissors win
+            //       ((sizeOfRockArmy != 0)  && (sizeOfPaperArmy != 0)   && (sizeOfScissorArmy != 0) && (sizeOfSpockArmy != 0)) ||    //Lizard wins
+            //       ((sizeOfRockArmy != 0)  && (sizeOfPaperArmy != 0)   && (sizeOfScissorArmy != 0) && (sizeOfLizardArmy != 0)))     //Spock wins
+            bool noWinner = true;
+            while (noWinner)
             {
                 //Rock army turn
                 if (sizeOfRockArmy > 0)
@@ -175,12 +181,23 @@ namespace RockPaperScissorsBattleRoyale
                 Console.Write("Spock: " + sizeOfSpockArmy + "     ");
                 Console.WriteLine();
                 Thread.Sleep(200); //Windows requires more than 15ms before each random call to ensure you don't get the same # twice
+
+                //Rock Wins
+                if (sizeOfPaperArmy == 0 && sizeOfScissorArmy == 0 && sizeOfLizardArmy == 0 && sizeOfSpockArmy == 0)
+                    noWinner = false;
+                //Paper Wins
+                if (sizeOfRockArmy == 0 && sizeOfScissorArmy == 0 && sizeOfLizardArmy == 0 && sizeOfSpockArmy == 0)
+                    noWinner = false;
+                //Scissors Wins
+                if (sizeOfRockArmy == 0 && sizeOfPaperArmy == 0 && sizeOfLizardArmy == 0 && sizeOfSpockArmy == 0)
+                    noWinner = false;
+                //Lizard Wins
+                if (sizeOfRockArmy == 0 && sizeOfPaperArmy == 0 && sizeOfScissorArmy == 0 && sizeOfSpockArmy == 0)
+                    noWinner = false;
+                //Spock Wins
+                if (sizeOfRockArmy == 0 && sizeOfPaperArmy == 0 && sizeOfScissorArmy == 0 && sizeOfLizardArmy == 0)
+                    noWinner = false;
             }
-            while (sizeOfPaperArmy != 0 && sizeOfScissorArmy != 0 && sizeOfLizardArmy  != 0 && sizeOfSpockArmy  != 0 ||    //Rock wins
-                   sizeOfRockArmy  != 0 && sizeOfScissorArmy != 0 && sizeOfLizardArmy  != 0 && sizeOfSpockArmy  != 0 ||      //Paper wins
-                   sizeOfRockArmy  != 0 && sizeOfPaperArmy   != 0 && sizeOfLizardArmy  != 0 && sizeOfSpockArmy  != 0 ||    //Scissors win
-                   sizeOfRockArmy  != 0 && sizeOfPaperArmy   != 0 && sizeOfScissorArmy != 0 && sizeOfSpockArmy  != 0 ||     //Lizard wins
-                   sizeOfRockArmy  != 0 && sizeOfPaperArmy   != 0 && sizeOfScissorArmy != 0 && sizeOfLizardArmy != 0);     //Spock wins
         }
     }
 }
