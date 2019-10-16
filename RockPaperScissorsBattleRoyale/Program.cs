@@ -6,10 +6,18 @@ namespace RockPaperScissorsBattleRoyale
     {
         static void Main()
         {
-            Simulation simulation = new Simulation(10);
-            simulation.Start();
+            string[] textHeader = { "Log: wins in Rock-Paper-Scissors Battle Royal", "" };
+            System.IO.File.WriteAllLines(@"C:\Users\Admin1\Documents\CodeFiles\RPSBRresults.txt", textHeader);
 
-            //write results to file here
+            int numberOfSimulations = 5;
+            for (int i = 0; i < numberOfSimulations; i++)
+            {
+                Simulation simulation = new Simulation(10);
+
+                using System.IO.StreamWriter file =
+                new System.IO.StreamWriter(@"C:\Users\Admin1\Documents\CodeFiles\RPSBRresults.txt", true);
+                file.WriteLine(simulation.Start());
+            }
         }
     }
 }

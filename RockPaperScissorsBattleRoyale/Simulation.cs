@@ -19,13 +19,14 @@ namespace RockPaperScissorsBattleRoyale
         private int sizeOfScissorArmy;
         private int sizeOfLizardArmy;
         private int sizeOfSpockArmy;
+        private string winner;
 
         public Simulation(int initialArmySize)
         {
             this.initialArmySize = initialArmySize;
         }
 
-        public void Start()
+        public string Start()
         {
             rock = new Army(initialArmySize);
             paper = new Army(initialArmySize);
@@ -44,8 +45,8 @@ namespace RockPaperScissorsBattleRoyale
             //       ((sizeOfRockArmy != 0)  && (sizeOfPaperArmy != 0)   && (sizeOfLizardArmy != 0)  && (sizeOfSpockArmy != 0)) ||    //Scissors win
             //       ((sizeOfRockArmy != 0)  && (sizeOfPaperArmy != 0)   && (sizeOfScissorArmy != 0) && (sizeOfSpockArmy != 0)) ||    //Lizard wins
             //       ((sizeOfRockArmy != 0)  && (sizeOfPaperArmy != 0)   && (sizeOfScissorArmy != 0) && (sizeOfLizardArmy != 0)))     //Spock wins
-            bool noWinner = true;
-            while (noWinner)
+            bool hasSomeoneWon = false;
+            while (!hasSomeoneWon)
             {
                 //Rock army turn
                 if (sizeOfRockArmy > 0)
@@ -180,24 +181,42 @@ namespace RockPaperScissorsBattleRoyale
                 Console.Write("Lizard: " + sizeOfLizardArmy + "     ");
                 Console.Write("Spock: " + sizeOfSpockArmy + "     ");
                 Console.WriteLine();
-                Thread.Sleep(200); //Windows requires more than 15ms before each random call to ensure you don't get the same # twice
+                Thread.Sleep(20); //Windows requires more than 15ms before each random call to ensure you don't get the same # twice
 
                 //Rock Wins
                 if (sizeOfPaperArmy == 0 && sizeOfScissorArmy == 0 && sizeOfLizardArmy == 0 && sizeOfSpockArmy == 0)
-                    noWinner = false;
+                {
+                    hasSomeoneWon = true;
+                    winner = "Rock";
+                }
                 //Paper Wins
                 if (sizeOfRockArmy == 0 && sizeOfScissorArmy == 0 && sizeOfLizardArmy == 0 && sizeOfSpockArmy == 0)
-                    noWinner = false;
+                {
+                    hasSomeoneWon = true;
+                    winner = "Paper";
+                }
                 //Scissors Wins
                 if (sizeOfRockArmy == 0 && sizeOfPaperArmy == 0 && sizeOfLizardArmy == 0 && sizeOfSpockArmy == 0)
-                    noWinner = false;
+                {
+                    hasSomeoneWon = true;
+                    winner = "scissors";
+                }
                 //Lizard Wins
                 if (sizeOfRockArmy == 0 && sizeOfPaperArmy == 0 && sizeOfScissorArmy == 0 && sizeOfSpockArmy == 0)
-                    noWinner = false;
+                {
+                    hasSomeoneWon = true;
+                    winner = "Lizard";
+                }
                 //Spock Wins
                 if (sizeOfRockArmy == 0 && sizeOfPaperArmy == 0 && sizeOfScissorArmy == 0 && sizeOfLizardArmy == 0)
-                    noWinner = false;
+                {
+                    hasSomeoneWon = true;
+                    winner = "Spock";
+                }
+
+
             }
+            return winner;
         }
     }
 }
