@@ -4,19 +4,19 @@ using System.Text;
 
 namespace RockPaperScissorsBattleRoyale
 {
-    class Rock
+    class Army
     {
         private int armySize;
         private Random rand = new Random();
 
-        public Rock(int initialArmySize)
+        public Army(int initialArmySize)
         {
             armySize = initialArmySize;
         }
 
         public MovementCollision Move()
         {
-            MovementCollision direction = (MovementCollision)rand.Next(0, 4);
+            MovementCollision direction = (MovementCollision)rand.Next(0, 6);
             return direction;
         }
 
